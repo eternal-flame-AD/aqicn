@@ -23,8 +23,8 @@ func getData(d []byte) (apiBaseResponse, error) {
 			err = ErrOverQuota
 		case "Invalid key":
 			err = ErrInvalidKey
-		case "Unknown City":
-			err = ErrUnknownCity
+		case "Unknown station":
+			err = ErrUnknownStation
 		default:
 			err = errors.New(r.Msg)
 		}

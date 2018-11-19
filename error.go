@@ -9,6 +9,6 @@ var (
 	ErrOverQuota = errors.New("the request is over quota limits")
 	// ErrInvalidKey means that the key is not valid
 	ErrInvalidKey = errors.New("the key is not valid")
-	// ErrUnknownCity means that the city is unknown
-	ErrUnknownCity = errors.New("the city is unknown")
+	// ErrUnknownStation means that the station is unknown
+	ErrUnknownStation = errors.New("the station is unknown")
 )
