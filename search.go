@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"net/http"
 	"net/url"
 )
 
@@ -12,7 +11,7 @@ import (
 func (c Client) SearchCity(keyword string) ([]SearchFeed, error) {
 	keyword = url.PathEscape(keyword)
 	token := url.QueryEscape(c.Token)
-	resp, err := http.Get(fmt.Sprintf("https://api.waqi.info/search/?keyword=%s&token=%s", keyword, token))
+	resp, err := c.get(fmt.Sprintf("https://api.waqi.info/search/?keyword=%s&token=%s", keyword, token))
 	if err != nil {
 		return nil, err
 	}

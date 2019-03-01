@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"net/http"
 	"net/url"
 )
 
@@ -12,7 +11,7 @@ import (
 func (c Client) CityFeed(city string) (*DetailFeed, error) {
 	city = url.PathEscape(city)
 	token := url.QueryEscape(c.Token)
-	resp, err := http.Get(fmt.Sprintf("https://api.waqi.info/feed/%s/?token=%s", city, token))
+	resp, err := c.get(fmt.Sprintf("https://api.waqi.info/feed/%s/?token=%s", city, token))
 	if err != nil {
 		return nil, err
 	}

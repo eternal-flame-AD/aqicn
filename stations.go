@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"net/http"
 	"net/url"
 )
 
@@ -20,7 +19,7 @@ type Station struct {
 func (c Client) SearchStation(lat1, lng1, lat2, lng2 float64) ([]Station, error) {
 	token := url.QueryEscape(c.Token)
 	url := fmt.Sprintf("https://api.waqi.info/map/bounds/?latlng=%.6f,%.6f,%.6f,%.6f&token=%s", lat1, lng1, lat2, lng2, token)
-	resp, err := http.Get(url)
+	resp, err := c.get(url)
 	if err != nil {
 		return nil, err
 	}

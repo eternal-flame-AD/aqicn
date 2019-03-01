@@ -5,7 +5,7 @@ import (
 )
 
 func TestCityFeed(t *testing.T) {
-	client := Client{"demo"}
+	client := Client{Token: "demo"}
 	res, err := client.CityFeed("shanghai")
 	if err != nil {
 		t.Fatal(err)

@@ -5,7 +5,7 @@ import (
 )
 
 func TestCitySearch(t *testing.T) {
-	client := Client{"demo"}
+	client := Client{Token: "demo"}
 	res, err := client.SearchCity("s")
 	if err != nil {
 		t.Fatal(err)
