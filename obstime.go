@@ -13,7 +13,10 @@ type ObsLocalTime time.Time
 func (c *ObsLocalTime) setByParseString(raw string) error {
 	t, err := time.Parse("2006-01-02 15:04:05-07:00", raw)
 	if err != nil {
-		return err
+		t, err = time.Parse("2006-01-02 15:04:05-0700", raw)
+		if err != nil {
+			return err
+		}
 	}
 	*c = ObsLocalTime(t)
 	return nil
@@ -47,12 +50,20 @@ func (c *ObsLocalTime) setByParseV(v int64, tz string) error {
 // UnmarshalJSON implements the json.Unmarshaler interface
 func (c *ObsLocalTime) UnmarshalJSON(b []byte) error {
 	raw := new(struct {
-		S  string `json:"s"`
-		TZ string `json:"tz"`
-		V  int64  `json:"v"`
+		S          string `json:"s"`
+		TZ         string `json:"tz"`
+		V          int64  `json:"v"`
+		SAlternate string `json:"stime"`
+		VAlternate int64  `json:"vtime"`
 	})
 	if err := json.Unmarshal(b, raw); err != nil {
 		return err
+	}
+	if raw.SAlternate != "" && raw.S == "" {
+		raw.S = raw.SAlternate
+	}
+	if raw.VAlternate != 0 && raw.V == 0 {
+		raw.V = raw.VAlternate
 	}
 	switch {
 	case c.setByParseString(raw.S+raw.TZ) == nil:
